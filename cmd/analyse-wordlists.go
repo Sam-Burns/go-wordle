@@ -17,7 +17,18 @@ func main() {
 	fmt.Printf("There are %d words that are valid guesses\n", validGuessesWordlist.Count())
 	fmt.Printf("There are %d words that are valid solutions\n", validSolutionsWordlist.Count())
 	fmt.Println()
+	fmt.Println("Frequencies of characters in solution wordlist:")
+	fmt.Println()
 
+	frequencyTable := words.MakeFrequencyTableFromWordlist(*validSolutionsWordlist)
+
+	frequencyTableRows := frequencyTable.GetPrintableFrequencyTableRows()
+
+	for _, frequencyTableRow := range frequencyTableRows {
+		fmt.Println(string(frequencyTableRow.Character) + "\t" + frequencyTableRow.GetPrintablePercentage())
+	}
+
+	fmt.Println()
 }
 
 func dieIfError(err error) {

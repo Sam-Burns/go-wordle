@@ -1,13 +1,13 @@
 package words
 
-type WordList struct {
+type Wordlist struct {
 	Words []Word
 }
 
-func (wl WordList) Count() int {
+func (wl Wordlist) Count() int {
 	return len(wl.Words)
 }
 
-func makeWordlist(words []Word) *WordList {
-	return &WordList{words}
+func makeWordlist(words []Word) *Wordlist {
+	return &Wordlist{words}
 }

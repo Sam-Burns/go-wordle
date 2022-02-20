@@ -8,15 +8,15 @@ import (
 const wordlistValidGuessesFile = "./data/wordlist-valid-guesses.csv"
 const wordlistValidSolutionsFile = "./data/wordlist-valid-solutions.csv"
 
-func GetGuessesWordlist() (*WordList, error) {
+func GetGuessesWordlist() (*Wordlist, error) {
 	return makeWordListFromFile(wordlistValidGuessesFile)
 }
 
-func GetSolutionsWordlist() (*WordList, error) {
+func GetSolutionsWordlist() (*Wordlist, error) {
 	return makeWordListFromFile(wordlistValidSolutionsFile)
 }
 
-func makeWordListFromFile(path string) (*WordList, error) {
+func makeWordListFromFile(path string) (*Wordlist, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err

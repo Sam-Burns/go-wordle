@@ -1,7 +1,7 @@
 # go-wordle
 
 An application for solving Wordle puzzles. Currently, the project analyses wordlists taken from the New York Times'
-Javascript, and presents the results. The actual player is still being built.
+Javascript, and presents the results. The actual player is still in progress.
 
 ## Wordlists
 
@@ -20,5 +20,42 @@ Run `go build analyse-wordlists.go` to run the analysis. You will need Go v1.17.
 - There are 12,497 words that _you_ are allowed to use as your _guess_
 - Of these, there are 2,309 words that _they_ are allowed to use as the _solution_ to a Wordle. (These tend to be
 well-known 5 letter words.)
-- The 5 most commonly used letters in valid Wordle solutions are the letters of the word **AROSE**. The next 5 most 
-common letters are the letters of the word **UNTIL**.
+- The 5 most commonly used letters in valid Wordle solutions are the letters of the word **ORATE**
+- If you wish to continue with the letter frequency strategy, the best two words to play next are **SULCI**, and then
+**HANDY**. You will then have played the 14 top letters in 3 turns.
+
+```
+go run ./cmd/analyse-wordlists.go
+
+There are 12947 words that are valid guesses
+There are 2309 words that are valid solutions
+
+Frequencies of characters in solution wordlist:
+
+E	10.65%
+A	 8.45%
+R	 7.77%
+O	 6.52%
+T	 6.31%
+L	 6.20%
+I	 5.80%
+S	 5.79%
+N	 4.96%
+C	 4.11%
+U	 4.04%
+Y	 3.67%
+D	 3.40%
+H	 3.35%
+P	 3.16%
+M	 2.74%
+G	 2.69%
+B	 2.43%
+F	 1.98%
+K	 1.82%
+W	 1.68%
+V	 1.32%
+Z	 0.35%
+X	 0.32%
+Q	 0.25%
+J	 0.23%
+```

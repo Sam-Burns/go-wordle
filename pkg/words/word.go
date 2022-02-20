@@ -1,6 +1,9 @@
 package words
 
-import "errors"
+import (
+	"errors"
+	"regexp"
+)
 
 type Word struct {
 	Characters []rune
@@ -16,8 +19,10 @@ func (w Word) toString() (stringRepresentation string) {
 
 func MakeWord(wordString string) (*Word, error) {
 
-	if len(wordString) != 5 {
-		return nil, errors.New("total fuck-up")
+	matchesValidationRegex, _ := regexp.MatchString("^[A-Z]{5}$", wordString)
+
+	if !matchesValidationRegex {
+		return nil, errors.New("String '" + wordString + "' not a valid word")
 	}
 
 	return &Word{
