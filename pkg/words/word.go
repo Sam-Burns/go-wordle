@@ -10,7 +10,7 @@ type Word struct {
 	String     string
 }
 
-func (w Word) toString() (stringRepresentation string) {
+func (w Word) ToString() (stringRepresentation string) {
 	for _, v := range w.Characters {
 		stringRepresentation += string(v)
 	}
