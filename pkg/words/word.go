@@ -30,3 +30,25 @@ func MakeWord(wordString string) (*Word, error) {
 		wordString,
 	}, nil
 }
+
+func (w Word) ContainsCharacterAtIndex(needle rune, index int) bool {
+	return w.Characters[index] == needle
+}
+
+func (w Word) ContainsCharacterAnywhere(needle rune) bool {
+	for _, haystackCharacter := range w.Characters {
+		if needle == haystackCharacter {
+			return true
+		}
+	}
+	return false
+}
+
+func (w Word) Equals(another *Word) bool {
+	for index, char := range w.Characters {
+		if another.Characters[index] != char {
+			return false
+		}
+	}
+	return true
+}

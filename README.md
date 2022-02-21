@@ -3,6 +3,35 @@
 An application for solving Wordle puzzles. Currently, the project analyses wordlists taken from the New York Times'
 Javascript, and presents the results. The actual player is still in progress.
 
+## Playing the Game
+
+To play the game, run `go run ./cmd/play-wordle.go SPARE`, or with any other five-letter word that is a valid solution
+to a Wordle.
+
+```
+go run cmd/play-wordle.go SPARE
+Wordle solution: SPARE
+
+There are currently 2309 possible solutions
+The next guess should be ARISE
+Worst-case scenario for proposed guess is the feedback -----. Carry-over ratio for possible solutions list would be 7.23%
+Guess number 1: ARISE
+Feedback from guess was: YY-YG
+
+There are currently 5 possible solutions [SCARE, SNARE, STARE, SHARE, SPARE]
+The next guess should be CHANT
+Worst-case scenario for proposed guess is the feedback Y-G--. Carry-over ratio for possible solutions list would be 20.00%
+Guess number 2: CHANT
+Feedback from guess was: --G--
+
+There are currently 1 possible solutions [SPARE]
+Guess number 3: SPARE
+Feedback from guess was: GGGGG
+
+Won the Wordle in 3 turns
+
+```
+
 ## Wordlists
 
 `./data/wordlist-valid-guesses.csv` and `./data/wordlist-valid-solutions.csv` are the input files. They are taken from
@@ -19,7 +48,7 @@ Run `go build analyse-wordlists.go` to run the analysis. You will need Go v1.17.
 
 - There are 12,497 words that _you_ are allowed to use as your _guess_
 - Of these, there are 2,309 words that _they_ are allowed to use as the _solution_ to a Wordle. (These tend to be
-well-known 5 letter words.)
+well-known 5-letter words.)
 - The 5 most commonly used letters in valid Wordle solutions are the letters of the word **ORATE**
 - If you wish to continue with the letter frequency strategy, the best two words to play next are **SULCI**, and then
 **HANDY**. You will then have played the 14 top letters in 3 turns.
