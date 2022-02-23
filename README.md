@@ -34,7 +34,7 @@ Won the Wordle in 3 turns
 
 ## Wordlists
 
-`./data/wordlist-valid-guesses.csv` and `./data/wordlist-valid-solutions.csv` are the input files. They are taken from
+`./config/wordlist-valid-guesses.csv` and `./config/wordlist-valid-solutions.csv` are the input files. They are taken from
 the New York Times website's Javascript.
 
 You can very simply reverse engineer the Javascript by going to

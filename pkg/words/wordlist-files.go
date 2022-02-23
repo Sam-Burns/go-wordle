@@ -5,8 +5,8 @@ import (
 	"os"
 )
 
-const wordlistValidGuessesFile = "./data/wordlist-valid-guesses.csv"
-const wordlistValidSolutionsFile = "./data/wordlist-valid-solutions.csv"
+const wordlistValidGuessesFile = "./config/wordlist-valid-guesses.csv"
+const wordlistValidSolutionsFile = "./config/wordlist-valid-solutions.csv"
 
 func GetGuessesWordlist() (*Wordlist, error) {
 	return makeWordListFromFile(wordlistValidGuessesFile)
