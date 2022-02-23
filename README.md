@@ -8,6 +8,8 @@ Javascript, and presents the results. The actual player is still in progress.
 To play the game, run `go run ./cmd/play-wordle.go SPARE`, or with any other five-letter word that is a valid solution
 to a Wordle.
 
+If you would like to force the first guess, use `go run ./cmd/play-wordle.go -first-guess=ORATE SPARE`.
+
 ```
 go run cmd/play-wordle.go SPARE
 Wordle solution: SPARE

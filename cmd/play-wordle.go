@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/Sam-Burns/go-wordle/pkg/wordlegame"
 	"github.com/Sam-Burns/go-wordle/pkg/wordleplayer"
@@ -11,7 +12,7 @@ import (
 
 func main() {
 
-	targetWord := getTargetWordFromParam()
+	targetWord, forcedFirstGuess := getParams()
 
 	wordleGame := wordlegame.MakeGameFromTargetWord(*targetWord)
 
@@ -19,6 +20,15 @@ func main() {
 
 	turnNumber := 1
 	won := false
+
+	if forcedFirstGuess != nil {
+		printPreAnalysis(player)
+		guessWasSolution, feedback, evaluation := takeForcedFirstGuess(player, targetWord, forcedFirstGuess)
+		printEvaluation(evaluation)
+		won = guessWasSolution
+		printTurn(forcedFirstGuess, feedback, turnNumber)
+		turnNumber += 1
+	}
 
 	for turnNumber <= 6 && !won {
 		printPreAnalysis(player)
@@ -32,13 +42,13 @@ func main() {
 	printOutcome(won, turnNumber-1)
 }
 
-func getTargetWordFromParam() *words.Word {
+func getParams() (targetWord *words.Word, forcedFirstGuess *words.Word) {
 	if len(os.Args) < 2 {
-		fmt.Fprintf(os.Stderr, "Usage: go run cmd/play-wordle.go ORATE")
+		fmt.Fprintf(os.Stderr, "Usage: go run cmd/play-wordle.go [-first-guess=ORATE] SPARE")
 		os.Exit(1)
 	}
 
-	wordArgument := os.Args[1]
+	wordArgument := os.Args[len(os.Args)-1]
 
 	targetWord, err := words.MakeWord(wordArgument)
 
@@ -47,10 +57,24 @@ func getTargetWordFromParam() *words.Word {
 		os.Exit(1)
 	}
 
+	var forcedFirstGuessString string
+	flag.StringVar(&forcedFirstGuessString, "first-guess", "", "First guess (optional)")
+
+	flag.Parse()
+
+	if forcedFirstGuessString != "" {
+		forcedFirstGuess, err = words.MakeWord(forcedFirstGuessString)
+	}
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error processing forced first guess: %v\n", err)
+		os.Exit(1)
+	}
+
 	fmt.Println("Wordle solution: " + targetWord.ToString())
 	fmt.Println()
 
-	return targetWord
+	return
 }
 
 func takeGuess(guessNo int, player *wordleplayer.WordlePlayer, wordleGame *wordlegame.Game, targetWord *words.Word) (won bool, guess *words.Word, feedback *wordlegame.Feedback, evaluation *wordleplayer.ProposedGuessEvaluation) {
@@ -58,6 +82,14 @@ func takeGuess(guessNo int, player *wordleplayer.WordlePlayer, wordleGame *wordl
 	won = guess.Equals(targetWord)
 	feedback = wordlegame.GetFeedback(targetWord, guess)
 	player.TakeFeedbackFromGuess(*guess, *feedback)
+	return
+}
+
+func takeForcedFirstGuess(player *wordleplayer.WordlePlayer, targetWord *words.Word, forcedFirstGuess *words.Word) (won bool, feedback *wordlegame.Feedback, evaluation *wordleplayer.ProposedGuessEvaluation) {
+	evaluation = player.EvaluatePossibleGuess(forcedFirstGuess)
+	won = forcedFirstGuess.Equals(targetWord)
+	feedback = wordlegame.GetFeedback(targetWord, forcedFirstGuess)
+	player.TakeFeedbackFromGuess(*forcedFirstGuess, *feedback)
 	return
 }
 

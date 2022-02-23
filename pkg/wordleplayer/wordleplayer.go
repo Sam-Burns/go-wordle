@@ -32,7 +32,7 @@ func (player WordlePlayer) GetNextGuess(game wordlegame.Game, isSixthTurn bool) 
 	}
 
 	for _, proposedGuess := range player.validGuesses.Words {
-		proposedGuessEvaluation := player.evaluatePossibleGuess(&proposedGuess)
+		proposedGuessEvaluation := player.EvaluatePossibleGuess(&proposedGuess)
 
 		if proposedGuessEvaluation.getWorstCaseShortlistCarryOverRatio() < bestGuessEvaluation.getWorstCaseShortlistCarryOverRatio() {
 			bestGuessEvaluation = *proposedGuessEvaluation
@@ -42,7 +42,7 @@ func (player WordlePlayer) GetNextGuess(game wordlegame.Game, isSixthTurn bool) 
 	return &bestGuessEvaluation.ProposedGuess, &bestGuessEvaluation
 }
 
-func (player WordlePlayer) evaluatePossibleGuess(possibleGuess *words.Word) *ProposedGuessEvaluation {
+func (player WordlePlayer) EvaluatePossibleGuess(possibleGuess *words.Word) *ProposedGuessEvaluation {
 
 	proposedGuessEvaluation := MakeProposedGuessEvaluation(*possibleGuess, player.possibleSolutions.Count())
 
