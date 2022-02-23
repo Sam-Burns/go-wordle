@@ -70,7 +70,7 @@ func printTurn(guess *words.Word, feedback *wordlegame.Feedback, guessNo int) {
 func printPreAnalysis(player *wordleplayer.WordlePlayer) {
 	noOfPossibleSolutions := player.GetNoOfPossibleSolutions()
 	fmt.Print("There are currently " + strconv.Itoa(noOfPossibleSolutions) + " possible solutions")
-	if noOfPossibleSolutions <= 6 {
+	if noOfPossibleSolutions <= 10 {
 		fmt.Println(" [" + player.GetPossibleSolutions() + "]")
 	} else {
 		fmt.Println()
