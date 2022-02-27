@@ -20,9 +20,9 @@ Worst-case scenario for proposed guess is the feedback -----. Carry-over ratio f
 Guess number 1: ARISE
 Feedback from guess was: YY-YG
 
-There are currently 5 possible solutions [SCARE, SNARE, STARE, SHARE, SPARE]
+There are currently 5 possible solutions [SCARE, SHARE, SNARE, SPARE, STARE]
 The next guess should be CHANT
-Worst-case scenario for proposed guess is the feedback Y-G--. Carry-over ratio for possible solutions list would be 20.00%
+Worst-case scenario for proposed guess is the feedback --G-Y. Carry-over ratio for possible solutions list would be 20.00%
 Guess number 2: CHANT
 Feedback from guess was: --G--
 

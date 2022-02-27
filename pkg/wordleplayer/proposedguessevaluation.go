@@ -12,10 +12,27 @@ type ProposedGuessEvaluation struct {
 	potentialFeedbackCounts          map[string]int
 	worstCaseScenarioFeedbackString  string
 	worstCaseShortlistCarryOverRatio float64
+	isPotentialSolution              bool
 }
 
-func MakeProposedGuessEvaluation(proposedGuess words.Word, sizeOfCurrentShortlist int) ProposedGuessEvaluation {
-	return ProposedGuessEvaluation{sizeOfCurrentShortlist, proposedGuess, make(map[string]int), "", 0.0}
+func MakeProposedGuessEvaluation(proposedGuess words.Word, sizeOfCurrentShortlist int, currrentShortlist *words.Wordlist) ProposedGuessEvaluation {
+
+	isPotentialSolution := false
+
+	for _, wordInCurrentShortlist := range currrentShortlist.Words {
+		if wordInCurrentShortlist.Equals(&proposedGuess) {
+			isPotentialSolution = true
+		}
+	}
+
+	return ProposedGuessEvaluation{
+		sizeOfCurrentShortlist,
+		proposedGuess,
+		make(map[string]int),
+		"",
+		0.0,
+		isPotentialSolution,
+	}
 }
 
 func (proposedGuessEvaluation ProposedGuessEvaluation) AddPossibleOutcome(possibleSolution words.Word, feedback wordlegame.Feedback) {
@@ -34,6 +51,19 @@ func (proposedGuessEvaluation *ProposedGuessEvaluation) getWorstCaseShortlistCar
 		proposedGuessEvaluation.calculate()
 	}
 	return proposedGuessEvaluation.worstCaseShortlistCarryOverRatio
+}
+
+func (proposedGuessEvaluation *ProposedGuessEvaluation) isBetterThan(another *ProposedGuessEvaluation) bool {
+	if proposedGuessEvaluation.getWorstCaseShortlistCarryOverRatio() < another.getWorstCaseShortlistCarryOverRatio() {
+		return true
+	}
+	if proposedGuessEvaluation.getWorstCaseShortlistCarryOverRatio() > another.getWorstCaseShortlistCarryOverRatio() {
+		return false
+	}
+	if proposedGuessEvaluation.isPotentialSolution && !another.isPotentialSolution {
+		return true
+	}
+	return false
 }
 
 func (proposedGuessEvaluation *ProposedGuessEvaluation) calculate() {
